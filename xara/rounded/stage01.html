@@ -43,6 +43,7 @@
     drag.onmousedown = function() {
         dragging = true;
     };
+    drag.ontouchstart = drag.onmousedown;
     drag.onmouseup = function() {
         dragging = false;
         posX = -1;
@@ -60,6 +61,7 @@
             this.style.top = posY + 'px';
         }
     };
+    drag.ontouchmove = drag.onmousemove;
   </script>
 </body>
 </html>
