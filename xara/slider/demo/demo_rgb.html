@@ -1,0 +1,118 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Slider Widget Demo</title>
+  <meta name="description" content="Example page to show the SliderWidget's features and capabilities">
+  <meta name="author" content="davidgarsan@gmail.com">
+
+  <link rel="stylesheet" href="../dist/css/slider.min.css">
+  <style type="text/css">
+  /** * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/) * http://cssreset.com */html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,time, mark, audio, video { margin: 0;  padding: 0; border: 0;  font-size: 100%;  font: inherit;  vertical-align: baseline;}/* HTML5 display-role reset for older browsers */article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {  display: block;}body {  line-height: 1;}ol, ul {  list-style: none;}blockquote, q { quotes: none;}blockquote:before, blockquote:after,q:before, q:after { content: '';  content: none;}table {  border-collapse: collapse;  border-spacing: 0;}
+
+  /** Demo styles */
+  body {
+    background-color: #333;
+  }
+  .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -200px;
+    margin-left: -200px;
+    width: 400px;
+    height: 100px;
+    box-shadow: 0 0 15px 5px #000;
+    display: inline-table;
+  }
+  .slider_wrapper {
+    height: 50px;
+    border: 1px solid #fff;
+    background-color: #666;
+    color: #fff;
+  }
+  .value {
+    position: relative;
+    height: 50px;
+    border: 1px solid #fff;
+    background-color: #ccc;
+    color: #333;
+    text-align: right;
+    padding-right: 5px;
+    line-height: 20px;
+    font: bold 44px Arial, Helvetica, sans-serif;;
+  }
+  .value::before {
+    content:          "";
+    position: absolute;
+    left: 12px;
+    bottom: 10px;
+    height: 30px;
+    width: 30px;
+    box-shadow: 0 0 5px 0 #000;
+    border: 1px solid #fff;
+  }
+  #value_r::before {
+   background-color: #f00;
+ }
+  #value_g::before {
+   background-color: #0f0;
+ }
+  #value_b::before {
+   background-color: #00f;
+ }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div id="slider_wrapper_r" class="slider_wrapper"></div>
+    <div id="value_r" class="value">0</div>
+
+    <div id="slider_wrapper_g" class="slider_wrapper"></div>
+    <div id="value_g" class="value">0</div>
+
+    <div id="slider_wrapper_b" class="slider_wrapper"></div>
+    <div id="value_b" class="value">0</div>
+    </div>
+  </div>
+
+  <script src="../dist/js/slider.min.js"></script>
+  <script type="text/javascript">
+    var r = 0;
+    var g = 0;
+    var b = 40;
+    function updateColor() {
+      document.body.style.backgroundColor = 'rgb('+r+','+g+','+b+')';
+    }
+    function convertHex(value) {
+      return Math.round((value*255)/100);
+    };
+    function onScrollR(value) {
+      r = convertHex(value);
+      document.getElementById('value_r').innerHTML = r;
+      updateColor();
+    };
+    function onScrollG(value) {
+      g = convertHex(value);
+      document.getElementById('value_g').innerHTML = g;
+      updateColor();
+    };
+    function onScrollB(value) {
+      b = convertHex(value);
+      document.getElementById('value_b').innerHTML = b;
+      updateColor();
+    };
+    var scroller_r = new SliderWidget('slider_wrapper_r', {});
+    var scroller_g = new SliderWidget('slider_wrapper_g', {});
+    var scroller_b = new SliderWidget('slider_wrapper_b', {});
+    scroller_r.addObserver(onScrollR);
+    scroller_g.addObserver(onScrollG);
+    scroller_b.addObserver(onScrollB);
+    updateColor();
+  </script>
+</body>
+</html>
