@@ -40,28 +40,40 @@
   <script type="text/javascript">
     var drag = document.getElementById('draggable');
     var dragging = false, x, y, posX = -1, posY = -1;
-    drag.onmousedown = function() {
-        dragging = true;
+
+    function handleOnMouseDown(event) {
+      event.preventDefault();
+      dragging = true;
     };
-    drag.ontouchstart = drag.onmousedown;
+
+    function handleOnMouseMove(event) {
+      event.preventDefault();
+      if (dragging) {
+          if (posX === -1 && posY === -1) {
+              x = event.offsetX === undefined ? event.layerX : event.offsetX;
+              y = event.offsetY === undefined ? event.layerY : event.offsetY;
+          }
+          posX = event.pageX - x;
+          posY = event.pageY - y;
+          this.style.left = posX + 'px';
+          this.style.top = posY + 'px';
+      }
+    };
+
+    drag.onmousedown = handleOnMouseDown;
+    drag.ontouchstart = handleOnMouseDown;
+
+    drag.onmousemove = handleOnMouseMove
+    drag.ontouchmove = handleOnMouseMove;
+
     drag.onmouseup = function() {
         dragging = false;
         posX = -1;
         posY = -1;
     };
-    drag.onmousemove = function(event) {
-        if (dragging) {
-            if (posX === -1 && posY === -1) {
-                x = event.offsetX;
-                y = event.offsetY;
-            }
-            posX = event.pageX - x;
-            posY = event.pageY - y;
-            this.style.left = posX + 'px';
-            this.style.top = posY + 'px';
-        }
+    function getPointerEvent(event) {
+      return event.originalEvent.targetTouches ? event.originalEvent.targetTouches[0] : event;
     };
-    drag.ontouchmove = drag.onmousemove;
   </script>
 </body>
 </html>

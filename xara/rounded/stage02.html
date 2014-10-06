@@ -57,16 +57,17 @@
   <script type="text/javascript">
     var drag = document.getElementById('draggable');
     var dragging = false, morphing = false, x, y, hx, posX = -1, posY = -1, posHX = -1;
-    drag.onmousedown = function() {
+
+    drag.onmousedown = function(event) {
       if (event.target.id === 'handler') {
         morphing = true;
-        posHX = event.x - event.target.offsetLeft;
+        posHX = (event.x || event.clientX) - event.target.offsetLeft;
       }
       else {
         dragging = true;
       }
     };
-    drag.onmouseup = function() {
+    drag.onmouseup = function(event) {
         dragging = false;
         morphing = false;
         posX = -1;
@@ -76,8 +77,8 @@
     drag.onmousemove = function(event) {
         if (dragging) {
             if (posX === -1 && posY === -1) {
-                x = event.offsetX;
-                y = event.offsetY;
+              x = event.offsetX === undefined ? event.layerX : event.offsetX;
+              y = event.offsetY === undefined ? event.layerY : event.offsetY;
             }
             posX = event.pageX - x;
             posY = event.pageY - y;

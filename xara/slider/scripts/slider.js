@@ -77,7 +77,7 @@ SliderWidget.prototype = {
     this.wrapper.appendChild(this.track);
   },
   onHandleMouseDown: function(event) {
-    this.cursorStart = event.x - this.handle.offsetLeft;
+    this.cursorStart = (event.x || event.clientX) - this.handle.offsetLeft;
     this.sliding = true;
     this.track.onmousemove = this.onHandleMouseMove.bind(this);
   },
@@ -88,7 +88,7 @@ SliderWidget.prototype = {
   },
   onHandleMouseMove: function(event) {
     if (this.sliding) {
-      var delta = event.x - this.cursorStart;
+      var delta = (event.x || event.clientX) - this.cursorStart;
       if (delta >= 0 &&
           delta <= this.track.clientWidth - this.handle.clientWidth) {
         this._value = delta;
