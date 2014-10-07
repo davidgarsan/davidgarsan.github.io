@@ -1,0 +1,63 @@
+// bower:scss
+@import "bourbon/dist/_bourbon.scss";
+@import "neat/app/assets/stylesheets/_neat.scss";
+// endbower
+
+@import "reset.scss";
+
+body {
+  background: url(http://subtlepatterns.com/patterns/binding_light.png);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #fff;
+  text-align: center;
+}
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+.draggable {
+  cursor: move;
+  @include box-sizing(border-box);
+  @include transition(box-shadow .5s ease-in-out);
+  background-color: purple;
+  height: 15em;
+  width: 15em;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  border: .5em solid #000;
+
+  &:hover, &:active {
+    box-shadow: 0 0 1em #000;
+  }
+
+  .handler {
+    @include box-sizing(border-box);
+    @include transition(box-shadow .5s ease-in-out);
+    cursor: ew-resize;
+    position: absolute;
+    right: -16px;
+    top: -16px;
+    background-color: aqua;
+    height: 2em;
+    width: 2em;
+    opacity: .5;
+    border: .1em solid #fff;
+    border-radius: 50%;
+
+      &:hover, &:active {
+      box-shadow: 0 0 .5em #000;
+    }
+  }
+
+  .text {
+    height: 100%;
+    vertical-align: middle;
+    line-height: 224px;
+    font-size: 1.5em;
+  }
+}
